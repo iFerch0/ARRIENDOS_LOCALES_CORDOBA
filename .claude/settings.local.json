@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(head:*)",
+      "Bash(cd \"/e/Proyectos/ARRIENDOS_LOCALES\" && npm run build 2>&1)",
+      "Bash(ls:*)",
+      "Bash(node:*)"
+    ]
+  }
+}
