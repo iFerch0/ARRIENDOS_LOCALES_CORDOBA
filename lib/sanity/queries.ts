@@ -100,7 +100,8 @@ export const NEIGHBORHOOD_BY_SLUG = `
     "properties": *[_type == "property" && references(^._id) && available == true]
       | order(_createdAt desc) {
         _id, title, slug, propertyType, price,
-        bedrooms, bathrooms, area,
+        bedrooms, bathrooms, area, parking, featured, city,
+        "neighborhoodName": neighborhood->name,
         "mainImage": images[0]${IMAGE_FRAGMENT}
       }
   }
