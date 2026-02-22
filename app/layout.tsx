@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from 'next'
 import { Inter, Playfair_Display } from 'next/font/google'
+import Script from 'next/script'
 import './globals.css'
 
 /* ── Fuentes ──────────────────────────────────────────────── */
@@ -75,6 +76,8 @@ export const viewport: Viewport = {
   initialScale: 1,
 }
 
+const GA_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID
+
 /* ── Layout raíz ──────────────────────────────────────────── */
 export default function RootLayout({
   children,
@@ -85,6 +88,22 @@ export default function RootLayout({
     <html lang="es" className={`${inter.variable} ${playfair.variable}`}>
       <body className="min-h-screen flex flex-col antialiased">
         {children}
+        {GA_ID && (
+          <>
+            <Script
+              src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
+              strategy="afterInteractive"
+            />
+            <Script id="ga-init" strategy="afterInteractive">
+              {`
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+                gtag('config', '${GA_ID}');
+              `}
+            </Script>
+          </>
+        )}
       </body>
     </html>
   )

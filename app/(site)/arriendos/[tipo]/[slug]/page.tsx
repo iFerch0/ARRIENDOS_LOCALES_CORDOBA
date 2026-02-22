@@ -9,6 +9,8 @@ import PropertyGallery from '@/components/property/PropertyGallery'
 import PropertyFeatures from '@/components/property/PropertyFeatures'
 import PropertyContact from '@/components/property/PropertyContact'
 import PropertyMap from '@/components/property/PropertyMap'
+import PropertySchema from '@/components/seo/PropertySchema'
+import Breadcrumbs from '@/components/seo/Breadcrumbs'
 import Badge from '@/components/ui/Badge'
 import type { Property, PropertyType } from '@/lib/sanity/types'
 import { MapPin, Calendar } from 'lucide-react'
@@ -81,17 +83,16 @@ export default async function PropertyDetailPage({ params }: { params: Params })
     })
 
     return (
-        <article className="container-site py-10 page-fade-in">
-            {/* Breadcrumb simple */}
-            <nav className="mb-6 flex items-center gap-2 text-sm text-neutral-500" aria-label="Ubicación">
-                <a href="/arriendos" className="hover:text-primary-600 transition-colors">Propiedades</a>
-                <span aria-hidden="true">›</span>
-                <a href={`/arriendos/${tipo}`} className="hover:text-primary-600 transition-colors capitalize">
-                    {PROPERTY_TYPE_LABELS[property.propertyType]}s
-                </a>
-                <span aria-hidden="true">›</span>
-                <span className="text-neutral-700 truncate max-w-[180px]">{property.title}</span>
-            </nav>
+        <>
+            <PropertySchema property={property} />
+            <article className="container-site py-10 page-fade-in">
+            <div className="mb-6">
+                <Breadcrumbs items={[
+                    { label: 'Propiedades', href: '/arriendos' },
+                    { label: `${PROPERTY_TYPE_LABELS[property.propertyType]}s`, href: `/arriendos/${tipo}` },
+                    { label: property.title },
+                ]} />
+            </div>
 
             <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
                 {/* Columna principal */}
@@ -165,5 +166,6 @@ export default async function PropertyDetailPage({ params }: { params: Params })
                 </div>
             </div>
         </article>
+        </>
     )
 }
