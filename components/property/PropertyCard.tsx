@@ -2,6 +2,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { BedDouble, Bath, Maximize2, MapPin, Car } from 'lucide-react'
 import Badge from '@/components/ui/Badge'
+import FavoriteButton from '@/components/property/FavoriteButton'
 import { formatPrice } from '@/lib/utils/formatPrice'
 import { PROPERTY_TYPE_LABELS, PROPERTY_TYPE_PLURAL } from '@/lib/utils/constants'
 import type { PropertyCard as PropertyCardType } from '@/lib/sanity/types'
@@ -38,6 +39,11 @@ export default function PropertyCard({ property }: PropertyCardProps) {
                 <div className="absolute top-3 left-3 z-10 flex gap-1.5 flex-wrap">
                     <Badge variant="primary">{PROPERTY_TYPE_LABELS[propertyType]}</Badge>
                     {featured && <Badge variant="accent">Destacada</Badge>}
+                </div>
+
+                {/* Botón favorito */}
+                <div className="absolute top-2 right-2 z-10">
+                    <FavoriteButton propertyId={property._id} />
                 </div>
 
                 {/* Precio */}

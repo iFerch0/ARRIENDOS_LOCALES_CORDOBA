@@ -75,7 +75,7 @@ export const MAP_PROPERTIES = `
 export const PROPERTIES_BY_IDS = `
   *[_type == "property" && _id in $ids] {
     _id, title, slug, propertyType, price,
-    bedrooms, bathrooms, area,
+    bedrooms, bathrooms, area, stratum, parking, featured, city,
     "neighborhoodName": neighborhood->name,
     "mainImage": images[0]${IMAGE_FRAGMENT}
   }

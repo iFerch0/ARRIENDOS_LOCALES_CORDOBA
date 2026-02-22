@@ -9,6 +9,8 @@ import PropertyGallery from '@/components/property/PropertyGallery'
 import PropertyFeatures from '@/components/property/PropertyFeatures'
 import PropertyContact from '@/components/property/PropertyContact'
 import PropertyMap from '@/components/property/PropertyMap'
+import FavoriteButton from '@/components/property/FavoriteButton'
+import ShareButtons from '@/components/property/ShareButtons'
 import PropertySchema from '@/components/seo/PropertySchema'
 import Breadcrumbs from '@/components/seo/Breadcrumbs'
 import Badge from '@/components/ui/Badge'
@@ -108,9 +110,12 @@ export default async function PropertyDetailPage({ params }: { params: Params })
                             {!property.available && <Badge variant="warning">No disponible</Badge>}
                         </div>
 
-                        <h1 className="font-display text-2xl font-bold text-neutral-900 sm:text-3xl">
-                            {property.title}
-                        </h1>
+                        <div className="flex items-start justify-between gap-3">
+                            <h1 className="font-display text-2xl font-bold text-neutral-900 sm:text-3xl">
+                                {property.title}
+                            </h1>
+                            <FavoriteButton propertyId={property._id} className="flex-none mt-1" />
+                        </div>
 
                         <div className="mt-3 flex flex-wrap items-center gap-4 text-sm text-neutral-500">
                             {property.neighborhoodName && (
@@ -123,6 +128,14 @@ export default async function PropertyDetailPage({ params }: { params: Params })
                                 <Calendar className="h-4 w-4" aria-hidden="true" />
                                 Publicado el {publishedDate}
                             </span>
+                        </div>
+
+                        <div className="mt-4">
+                            <ShareButtons
+                                title={property.title}
+                                propertyType={property.propertyType}
+                                slug={property.slug.current}
+                            />
                         </div>
                     </div>
 

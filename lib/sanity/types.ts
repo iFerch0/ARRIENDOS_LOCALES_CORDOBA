@@ -158,6 +158,19 @@ export interface SiteSettings {
     ogImage?: SanityImage
 }
 
+/* ── Mapa interactivo ──────────────────────────────────────── */
+
+/** Propiedad para el mapa (solo campos necesarios para marcadores) */
+export interface MapProperty {
+    _id: string
+    title: string
+    slug: SanitySlug
+    price: number
+    propertyType: PropertyType
+    location: GeoPoint
+    mainImage?: SanityImage
+}
+
 /* ── Tipos de filtros ──────────────────────────────────────── */
 
 export interface PropertyFilters {
