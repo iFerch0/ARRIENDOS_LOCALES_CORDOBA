@@ -30,7 +30,7 @@ export default async function MapaPage() {
     }
 
     return (
-        <div className="flex flex-col h-[calc(100vh-4rem)] overflow-hidden">
+        <main aria-label="Mapa de propiedades" className="flex flex-col h-[calc(100vh-4rem)] overflow-hidden">
             {/* Barra superior */}
             <div className="flex-none px-4 py-3 flex items-center justify-between gap-4 bg-white border-b border-neutral-200 sm:px-6">
                 <div>
@@ -68,6 +68,6 @@ export default async function MapaPage() {
             <div className="flex-1 min-h-0">
                 <MapWrapper properties={properties} />
             </div>
-        </div>
+        </main>
     )
 }

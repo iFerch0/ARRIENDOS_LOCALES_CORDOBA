@@ -7,9 +7,10 @@ export default function SiteLayout({ children }: { children: ReactNode }) {
     return (
         <>
             <Header />
-            <main id="main-content" className="flex-1 pt-16">
+            {/* div en lugar de main: cada page define su propio <main> para evitar landmarks anidados */}
+            <div id="main-content" className="flex-1 pt-16">
                 {children}
-            </main>
+            </div>
             <Footer />
             <WhatsAppFloat />
         </>
