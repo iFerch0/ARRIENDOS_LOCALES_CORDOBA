@@ -129,6 +129,45 @@ export const BLOG_POST_BY_SLUG = `
 /** Singleton de configuración del sitio */
 export const SITE_SETTINGS = `*[_type == "siteSettings"][0] { ... }`
 
+/* ── Catálogo filtrado ─────────────────────────────────────── */
+
+/**
+ * Propiedades con filtros opcionales + paginación.
+ * Parámetros: $tipo, $barrio, $precioMin, $precioMax, $habitaciones (null = ignorar),
+ *             $from, $to (índices de slice para paginación).
+ */
+export const FILTERED_PROPERTIES = `
+  *[
+    _type == "property" &&
+    available == true &&
+    (!defined($tipo) || propertyType == $tipo) &&
+    (!defined($barrio) || neighborhood->slug.current == $barrio) &&
+    (!defined($precioMin) || price >= $precioMin) &&
+    (!defined($precioMax) || price <= $precioMax) &&
+    (!defined($habitaciones) || bedrooms >= $habitaciones)
+  ] | order(_createdAt desc) [$from...$to] {
+    _id, title, slug, propertyType, price,
+    bedrooms, bathrooms, area, stratum, parking, featured, city,
+    "neighborhoodName": neighborhood->name,
+    "neighborhoodSlug": neighborhood->slug.current,
+    "mainImage": images[0]${IMAGE_FRAGMENT},
+    location
+  }
+`
+
+/** Cuenta total de propiedades con los mismos filtros (para paginación). */
+export const PROPERTIES_COUNT = `
+  count(*[
+    _type == "property" &&
+    available == true &&
+    (!defined($tipo) || propertyType == $tipo) &&
+    (!defined($barrio) || neighborhood->slug.current == $barrio) &&
+    (!defined($precioMin) || price >= $precioMin) &&
+    (!defined($precioMax) || price <= $precioMax) &&
+    (!defined($habitaciones) || bedrooms >= $habitaciones)
+  ])
+`
+
 /* ── Sitemap ───────────────────────────────────────────────── */
 
 /** Todos los slugs para generar el sitemap dinámico */

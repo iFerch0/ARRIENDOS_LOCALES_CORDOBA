@@ -63,6 +63,15 @@ export const PROPERTY_FEATURES = [
     'Cerca a centros comerciales',
 ] as const
 
+/** URL plural → tipo singular (inverso de PROPERTY_TYPE_PLURAL) */
+export const PLURAL_TO_TYPE = Object.entries(PROPERTY_TYPE_PLURAL).reduce<Record<string, PropertyType>>(
+    (acc, [type, plural]) => {
+        acc[plural] = type as PropertyType
+        return acc
+    },
+    {}
+)
+
 /* ── Redes sociales ───────────────────────────────────────── */
 export const SOCIAL_LINKS = {
     facebook: '',

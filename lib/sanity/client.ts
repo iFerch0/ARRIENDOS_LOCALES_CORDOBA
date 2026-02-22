@@ -1,14 +1,18 @@
 import { createClient } from 'next-sanity'
 
+// Los tokens reales de Sanity siempre empiezan con "sk".
+// Si el valor es un placeholder, no lo pasamos para evitar errores 401.
+const token = process.env.SANITY_API_TOKEN?.startsWith('sk')
+    ? process.env.SANITY_API_TOKEN
+    : undefined
+
 export const client = createClient({
     projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID!,
     dataset: process.env.NEXT_PUBLIC_SANITY_DATASET ?? 'production',
     apiVersion: '2024-01-01',
     useCdn: process.env.NODE_ENV === 'production',
-    token: process.env.SANITY_API_TOKEN,
-    stega: {
-        enabled: false,
-    },
+    token,
+    stega: { enabled: false },
 })
 
 /**
